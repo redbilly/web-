@@ -7,12 +7,19 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <title>clock</title>
 <style>
-	body{
-		background: blue;
+	div{
+		padding-top: 25px;
+		background: lightblue;
+	}
+	#clock{
+		font-size: 25px;
+		color: green;
 	}
 </style>
 </head>
 <body>
+	<div class="container text-center">
+	<h1>Beautiful Clock</h1><br/>
 	<select>
 		<option value="0">0</option>
 		<option value="1">1</option>
@@ -33,7 +40,14 @@
 	<div id="clock">
 		00:00:00
 	</div>
+	<div class="text-right">
+	<div class="btn-group">
+		<button onclick="up()" id=up type="button" class="btn btn-sm btn-primary">stopwatch</button>	
+		<button onclick="down()" id=down type="button" class="btn btn-sm btn-primary"t>countdown</button>
+	</div>
+	</div>
 	<script>	
+		let stopwatch=true;
 		let secCounter=0;
 		let minCounter=0;
 		let hourCounter=0;
@@ -48,7 +62,10 @@
 				let e = document.querySelector('select');
 				hourCounter=e.value;
 				minCounter=min;
-				secCounter=sec-1;
+				secCounter=sec
+				if(stopwatch){
+					secCounter--;
+				}
 			}
 		}
 
@@ -56,17 +73,33 @@
 			let secOutput=0;
 			let minOutput=0;
 			let hourOutput=0;
-			secCounter++;
-			if(secCounter>59){
-				secCounter=0;
-				minCounter++;
+			if(stopwatch){
+				secCounter++;
+				if(secCounter>59){
+					secCounter=0;
+					minCounter++;
+				}
+				if(minCounter>59){
+					minCounter=0;
+					hourCounter++;
+				}
+				if(hourCounter>11){
+					hourCounter=0;
+				}
 			}
-			if(minCounter>59){
-				minCounter=0;
-				hourCounter++;
-			}
-			if(hourCounter>11){
-				hourCounter=0;
+			else{
+				secCounter--;
+				if(secCounter<0){
+					secCounter=59;
+					minCounter--;
+				}
+				if(minCounter<0){
+					minCounter=59;
+					hourCounter--;
+				}
+				if(hourCounter<0){
+					hourCounter=11;
+				}
 			}
 			if(secCounter<10){
 				secOutput="0"+secCounter;
@@ -88,7 +121,14 @@
 			}
 				document.querySelector('#clock').innerHTML=hourOutput+":"+minOutput+":"+secOutput;
 		}
+		function up(){
+			stopwatch=true;
+		}
+		function down(){
+			stopwatch=false;
+		}
 		window.setInterval(timeOutput, 1000);
 	</script>
+</div>
 </body>
 </html>

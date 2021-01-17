@@ -16,9 +16,12 @@
 		color: green;
 		background-color: black;
 	}
+	button:hover{
+		background-color: yellow;
+	}
 </style>
 </head>
-<body style="background: yellow;">
+<body style="background: purple;">
 	<div class="container text-center" id="container">
 	<h1>Beautiful Clock</h1><br/>
 	<select>
@@ -66,6 +69,9 @@
 				secCounter=sec
 				if(stopwatch){
 					secCounter--;
+				}
+				else{
+					secCounter++;
 				}
 			}
 		}

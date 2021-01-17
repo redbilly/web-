@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>clock</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<title>clock</title>
+<style>
+	body{
+		background: red;
+	}
+</style>
+</head>
+<body>
+	<select>
+		<option value="0">0</option>
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+	</select>
+	: <input type="text" id="min" value=0 />
+	: <input type="text" id="sec" value=0 />
+	<button onclick="timeChange()">change</button>
+	<div id="clock">
+		00:00:00
+	</div>
+	<script>	
+		let secCounter=0;
+		let minCounter=0;
+		let hourCounter=0;
+
+		function timeChange(){
+			let min=document.querySelector('#min').value;
+			let sec=document.querySelector('#sec').value;
+			if(sec>59 || min>59){
+				alert('plz right valid value');
+			}
+			else{
+				let e = document.querySelector('select');
+				hourCounter=e.value;
+				minCounter=min;
+				secCounter=sec-1;
+			}
+		}
+
+		function timeOutput(){
+			let secOutput=0;
+			let minOutput=0;
+			let hourOutput=0;
+			secCounter++;
+			if(secCounter>59){
+				secCounter=0;
+				minCounter++;
+			}
+			if(minCounter>59){
+				minCounter=0;
+				hourCounter++;
+			}
+			if(hourCounter>11){
+				hourCounter=0;
+			}
+			if(secCounter<10){
+				secOutput="0"+secCounter;
+			}
+			else{
+				secOutput=secCounter;
+			}
+			if(minCounter<10){
+				minOutput="0"+minCounter;
+			}
+			else{
+				minOutput=minCounter;
+			}
+			if(hourCounter<10){
+				hourOutput="0"+hourCounter;
+			}
+			else{
+				hourOutput=hourCounter;
+			}
+				document.querySelector('#clock').innerHTML=hourOutput+":"+minOutput+":"+secOutput;
+		}
+		window.setInterval(timeOutput, 1000);
+	</script>
+</body>
+</html>
